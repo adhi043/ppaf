@@ -2,6 +2,7 @@ import axios from 'axios'
 import React,{ useEffect, useState } from 'react';
 import { saveAs } from 'file-saver'
 import { useParams } from 'react-router-dom';
+import urlDaak from './dbConfig';
 
 const DaakUser = () => {
 
@@ -10,16 +11,14 @@ const DaakUser = () => {
     const [data,setData]=useState()
 
     useEffect(()=>{
-        axios.get(`https://daak.sargodhacci-org.com/daak/get/${id}`).then(res=>{
+        axios.get(`${urlDaak}/get/${id}`).then(res=>{
             setData(res.data?.data)
         })
 
-    })
+    },[])
 
 
     const ext=data?.file.split(".")
-
-    console.log(ext)
 
 
 

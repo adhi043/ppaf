@@ -3,6 +3,7 @@ import './App.css';
 import DaakAdmin from './pages/DaakAdmin';
 import DaakSUser from './pages/DaakSUser';
 import DaakUser from './pages/DaakUser';
+import DaakUUser from './pages/DaakUUser';
 
 
 function App() {
@@ -12,13 +13,13 @@ function App() {
     <HashRouter>
     <Routes>
       <Route path='/admin' element={<DaakAdmin/>} />
-      <Route path='/user/:id' element={<DaakUser/>} />
-      <Route path='/users' element={<DaakSUser/>} />
+      <Route path='/getletter/:id' element={<DaakUser/>} />
+      <Route path='/updategetletter/:id' element={<DaakUUser/>} />
+      <Route path='/getletters' element={<DaakSUser/>} />
     </Routes>
-    
-    </HashRouter>
-    
+    </HashRouter>    
   );
+
 }
 
 export default App;

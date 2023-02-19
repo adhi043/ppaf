@@ -1,19 +1,25 @@
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import React,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Modal } from "antd";
+import urlDaak from './dbConfig';
 
 const DaakSUser = () => {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const [data, setData] = useState()
 
     useEffect(() => {
-        axios.get(`https://daak.sargodhacci-org.com/daak/get`).then(res => {
+        axios.get(`${urlDaak}/get`).then(res => {
             setData(res.data?.data)
         })
 
-    })
+    },[])
+
+
+
+
 
     return (
         <div>
@@ -33,8 +39,23 @@ const DaakSUser = () => {
                                         <div>
                                             {i?.uid}
                                         </div>
-                                        <div>
-                                            <button className='btn btn-primary' onClick={()=>{navigate(`/user/${i?.uid}`)}}>View</button>
+                                        <div className='d-flex gap-4'>
+                                            <i className="fa fa-eye text-primary" onClick={() => { navigate(`/getletter/${i?.uid}`) }} style={{ cursor: 'pointer' }}></i>
+
+                                            <i className="fa fa-pen text-success" style={{ cursor: 'pointer' }} onClick={() => { navigate(`/updategetletter/${i?.uid}`) }}></i>
+
+                                            <i className="fa fa-trash text-danger" style={{ cursor: 'pointer' }} onClick={() => {
+                                                Modal.confirm({
+                                                    title: "Are you sure you want to delete?",
+                                                    onOk: () => {
+                                                        axios.delete(`${urlDaak}/delete/${i?.id}`).then(res => {
+                                                            if (res.data.status === "ok") {
+                                                                window.location.reload(true)
+                                                            }
+                                                        })
+                                                    }
+                                                });
+                                            }}></i>
                                         </div>
                                     </div>
                                 </>
